@@ -12,9 +12,15 @@
 </head>
 
 <body>
- <h4>Welcome to</h4>
- <h1>80s Movies Hangman!</h1>
+<div class="row text-center">
+	<div class="col-xs-8 col-xs-offset-2">
+ 		<h4>Welcome to</h4>
+ 		<h1>80's Movies Hangman!</h1>
+ 	</div>
+ </div>
  <script>
+
+ // List of Computer Answers
 var movieList = [
 	'Ghostbusters',
 	'The Goonies',
@@ -24,25 +30,34 @@ var movieList = [
 	'The Breakfast Club',
 	]
 
+// Randomly selecting which answer the computer will use
  var computerAnswer = movieList[Math.floor(Math.random() * movieList.length)];
  console.log(computerAnswer)
 
+// splitting the answer string into individual letters while removing spaces and making it all lowercase.
  var letters = computerAnswer.toLowerCase().replace(/\s/g, '').split("");
  	console.log(letters);
 
+var newArray = [];
 
-
+//Compare function to compare userguess to computer answer array
  var compare = function(userGuess, letters) {
  	if(letters.indexOf(userGuess) > -1) {
+ 		newArray.push(userGuess);
+ 		console.log(newArray);
  		console.log("Match!");
- 	}
+	} else {
+		console.log("Nope");
+	}
  }
 
+// user keystroke and executing compare function
  document.onkeyup=function(event) {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 	console.log('User', userGuess);
 	compare(userGuess, letters);
 }
+
 </script>
 </body>
 </html>
