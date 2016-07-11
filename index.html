@@ -3,10 +3,46 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	
-	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<title>Hangman</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.css">
 </head>
+
 <body>
- <h1>Hello World</h1>
+ <h4>Welcome to</h4>
+ <h1>80s Movies Hangman!</h1>
+ <script>
+var movieList = [
+	'Ghostbusters',
+	'The Goonies',
+	'Back to the Future',
+	'Top Gun',
+	'Gremlins',
+	'The Breakfast Club',
+	]
+
+ var computerAnswer = movieList[Math.floor(Math.random() * movieList.length)];
+ console.log(computerAnswer)
+
+ var letters = computerAnswer.toLowerCase().replace(/\s/g, '').split("");
+ 	console.log(letters);
+
+
+
+ var compare = function(userGuess, letters) {
+ 	if(letters.indexOf(userGuess) > -1) {
+ 		console.log("Match!");
+ 	}
+ }
+
+ document.onkeyup=function(event) {
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+	console.log('User', userGuess);
+	compare(userGuess, letters);
+}
+</script>
 </body>
 </html>
