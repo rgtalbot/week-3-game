@@ -1,10 +1,12 @@
 var wins = 0;
 var losses = 0;
 var misses = 6;
-// List of Computer Answers
+
 var movieList = {
+    // List of Computer Answers
     movies: ['Ghostbusters', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club', 'Blade Runner', 'Die Hard', 'Rambo', 'Rocky IV', 'Indiana Jones', 'The Karate Kid', 'Police Academy', 'Revenge of the Nerds', 'The Terminator', 'Weekend at Bernies'],
 
+    //check to see if there is a win
     winCheck: function() {
         var a = blanks.indexOf("_");
         if (a < 0) {
@@ -15,6 +17,7 @@ var movieList = {
         }
     },
 
+    //update the displayed word after a correct hit, win, or loss
     wordUpdate: function() {
         displayAnswer = "";
         for (var i = 0; i < computerAnswer.length; i++) {
@@ -24,6 +27,7 @@ var movieList = {
         document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp');
     },
 
+    //reset the game if a win or loss is detected
     resetGame: function() {
         misses = 6;
         document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
@@ -42,17 +46,20 @@ var movieList = {
         movieList.wordUpdate();
     },
 };
+
+//display inital counts
 document.getElementById("wins").innerHTML = "Wins: " + wins;
 document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
+
 // Randomly selecting which answer the computer will use
 var computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
 console.log(computerAnswer);
 
-
 var blanks = [];
 var guessed = [];
 
+//create blank array for displaying
 for (var i = 0; i < computerAnswer.length; i++) {
     if (computerAnswer[i] == " ") {
         blanks.push("^");
@@ -61,6 +68,7 @@ for (var i = 0; i < computerAnswer.length; i++) {
     }
 }
 movieList.wordUpdate();
+
 // user keystroke executing function
 document.onkeyup = function(event) {
     var userGuess = String.fromCharCode(event.keyCode);
