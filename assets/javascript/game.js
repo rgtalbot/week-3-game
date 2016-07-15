@@ -21,7 +21,7 @@ var movieList = {
             displayAnswer += blanks[i] + " ";
         }
         console.log(displayAnswer);
-        document.getElementById("word").innerHTML = displayAnswer;
+        document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp');
     },
 
 
@@ -29,15 +29,14 @@ var movieList = {
     resetGame: function() {
         misses = 6;
         document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
-        computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
-        computerAnswer = computerGuess.toUpperCase();
+        computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
         console.log(computerAnswer);
         guessed = [];
         document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
         blanks = [];
         for (var i = 0; i < computerAnswer.length; i++) {
             if (computerAnswer[i] == " ") {
-                blanks.push(" ");
+                blanks.push("^");
             } else {
                 blanks.push("_");
             }
@@ -49,9 +48,7 @@ document.getElementById("wins").innerHTML = "Wins: " + wins;
 document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 // Randomly selecting which answer the computer will use
-var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
-// splitting the answer string into individual letters while removing spaces and making it all lowercase.
-var computerAnswer = computerGuess.toUpperCase();
+var computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
 console.log(computerAnswer);
 
 
@@ -60,7 +57,7 @@ var guessed = [];
 
 for (var i = 0; i < computerAnswer.length; i++) {
     if (computerAnswer[i] == " ") {
-        blanks.push(" ");
+        blanks.push("^");
     } else {
         blanks.push("_");
     }
@@ -69,6 +66,7 @@ movieList.wordUpdate();
 // user keystroke executing function
 document.onkeyup = function(event) {
     var userGuess = String.fromCharCode(event.keyCode);
+    document.getElementById('start').style.display = 'none'
     if (guessed.includes(userGuess)) {
         //do nothing
     } else {
