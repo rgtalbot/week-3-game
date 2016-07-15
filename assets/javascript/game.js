@@ -10,7 +10,7 @@ var movieList = {
 		if (a < 0) {
 			wins++;
 			document.getElementById("wins").innerHTML = "Wins: " + wins;
-			alert("Congrats. " + computerAnswer + " was correct.");
+			alert("Congrats, " + computerAnswer + " was correct!")
 			movieList.resetGame();
 		}
 	},
@@ -27,9 +27,9 @@ var movieList = {
 	resetGame: function() {
 		misses = 6;
 		document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
-		var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
+		computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
 
-		var computerAnswer = computerGuess.toUpperCase().replace(/\s/g, '').split("").join('');
+		computerAnswer = computerGuess.toUpperCase().replace(/\s/g, '').split("").join('');
 		console.log(computerAnswer);
 		guessed = [];
 		document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
@@ -85,7 +85,7 @@ document.onkeyup = function(event) {
 			if (misses == 0) {
 				losses ++;
 				document.getElementById('losses').innerHTML = "Losses: " + losses;
-				alert("You have lost. The correct answer was: " + computerAnswer)
+				alert("Sorry, the correct answer was " + computerAnswer);
 				movieList.resetGame();
 			}
 			document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
