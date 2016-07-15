@@ -24,8 +24,6 @@ var movieList = {
         document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp');
     },
 
-
-
     resetGame: function() {
         misses = 6;
         document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
