@@ -16,7 +16,7 @@ var movieList = {
     },
 
     wordUpdate: function() {
-        // var displayAnswer = "";
+        displayAnswer = "";
         for (var i = 0; i < computerAnswer.length; i++) {
             displayAnswer += blanks[i] + " ";
         }
@@ -30,7 +30,7 @@ var movieList = {
         misses = 6;
         document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
         computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
-        computerAnswer = computerGuess.toUpperCase().replace(/\s/g, '').split("").join('');
+        computerAnswer = computerGuess.toUpperCase();
         console.log(computerAnswer);
         guessed = [];
         document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
@@ -54,7 +54,7 @@ var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies
 var computerAnswer = computerGuess.toUpperCase();
 console.log(computerAnswer);
 
-var displayAnswer = "";
+
 var blanks = [];
 var guessed = [];
 
@@ -64,7 +64,6 @@ for (var i = 0; i < computerAnswer.length; i++) {
     } else {
         blanks.push("_");
     }
-    console.log(blanks);
 }
 movieList.wordUpdate();
 // user keystroke executing function
