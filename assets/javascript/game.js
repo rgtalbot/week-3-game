@@ -10,7 +10,7 @@ var movieList = {
 		if (a < 0) {
 			wins++;
 			document.getElementById("wins").innerHTML = "Wins: " + wins;
-
+			alert("Congrats. " + computerAnswer + " was correct.");
 			movieList.resetGame();
 		}
 	},
@@ -29,7 +29,7 @@ var movieList = {
 		document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 		var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
 
-		var computerAnswer = computerGuess.toLowerCase().replace(/\s/g, '').split("").join('');
+		var computerAnswer = computerGuess.toUpperCase().replace(/\s/g, '').split("").join('');
 		console.log(computerAnswer);
 		guessed = [];
 		document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
@@ -49,7 +49,7 @@ document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + miss
 // Randomly selecting which answer the computer will use
 var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
 // splitting the answer string into individual letters while removing spaces and making it all lowercase.
-var computerAnswer = computerGuess.toLowerCase().replace(/\s/g, '').split("").join('');
+var computerAnswer = computerGuess.toUpperCase().replace(/\s/g, '').split("").join('');
 console.log(computerAnswer);
 var answerLetters = [];
 var blanks = [];
@@ -62,7 +62,7 @@ for (var i = 0; i < computerAnswer.length; i++) {
 movieList.wordUpdate();
 // user keystroke executing function
 document.onkeyup = function(event) {
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+	var userGuess = String.fromCharCode(event.keyCode);
 	if (guessed.includes(userGuess)) {
 		//do nothing
 	} else {
@@ -85,6 +85,7 @@ document.onkeyup = function(event) {
 			if (misses == 0) {
 				losses ++;
 				document.getElementById('losses').innerHTML = "Losses: " + losses;
+				alert("You have lost. The correct answer was: " + computerAnswer)
 				movieList.resetGame();
 			}
 			document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
