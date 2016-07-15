@@ -13,16 +13,30 @@
 </head>
 
 <body>
-	<div class="row text-center">
-		<div class="col-xs-8 col-xs-offset-2">
-			<h4>Welcome to</h4>
-			<h1>80's Movies Hangman!</h1>
+	<div class="wrapper">
+		<div class="row text-center">
+			<div class="col-xs-8 col-xs-offset-2">
+				<h4>WELCOME TO</h4>
+				<h1>80'S MOVIES HANGMAN</h1>
+			</div>
+		</div>
+		<div class="container">
+		<div class="row board">
+			<div class="col-xs-4">
+				<br/>
+				<div id="word"></div>
+			</div>
+			<div class="col-xs-4 text-center">
+				<div id="guesses"></div>
+				<div id="letters"></div>
+			</div>
+			<div class="col-xs-4 align-right">
+				<div id="wins"></div>
+				<div id="losses"></div>
+			</div>
 		</div>
 	</div>
-	<div id="word"></div>
-	<div id="letters"></div>
-	<div id="wins"></div>
-	<div id="guesses"></div>
+	</div>
 	<script src="assets/javascript/game.js"></script>
 </body>
 

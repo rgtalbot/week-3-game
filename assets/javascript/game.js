@@ -1,13 +1,12 @@
 var wins = 0;
-
+var losses = 0;
 var misses = 6;
 // List of Computer Answers
 var movieList = {
-	movies: ['Ghostbusters', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club'],
+	movies: ['Ghostbusters', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club', 'Blade Runner', 'Die Hard', 'Rambo', 'Rocky IV', 'Indiana Jones', 'The Karate Kid', 'Police Academy', 'Revenge of the Nerds', 'The Terminator', 'Weekend at Bernies'],
 
 	winCheck: function() {
 		var a = blanks.indexOf("_");
-		console.log(a);
 		if (a < 0) {
 			wins++;
 			document.getElementById("wins").innerHTML = "Wins: " + wins;
@@ -27,14 +26,13 @@ var movieList = {
 
 	resetGame: function() {
 		misses = 6;
-
+		document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 		var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
-		console.log(computerGuess);
 
 		var computerAnswer = computerGuess.toLowerCase().replace(/\s/g, '').split("").join('');
 		console.log(computerAnswer);
 		guessed = [];
-		document.querySelector('#letters').innerHTML = "Letters guessed: " + guessed;
+		document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
 		answerLetters = [];
 		blanks = [];
 		for (var i = 0; i < computerAnswer.length; i++) {
@@ -46,10 +44,10 @@ var movieList = {
 	},
 };
 document.getElementById("wins").innerHTML = "Wins: " + wins;
+document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 // Randomly selecting which answer the computer will use
 var computerGuess = movieList.movies[Math.floor(Math.random() * movieList.movies.length)];
-console.log(computerGuess);
 // splitting the answer string into individual letters while removing spaces and making it all lowercase.
 var computerAnswer = computerGuess.toLowerCase().replace(/\s/g, '').split("").join('');
 console.log(computerAnswer);
@@ -66,20 +64,17 @@ movieList.wordUpdate();
 document.onkeyup = function(event) {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 	if (guessed.includes(userGuess)) {
-		alert('alreadyguessed');
+		//do nothing
 	} else {
 		guessed.push(userGuess)
-		document.querySelector('#letters').innerHTML = "Letters guessed: " + guessed.join(", ");
+		document.getElementById('letters').innerHTML = "Letters guessed: " + guessed.join(", ");
 		if (answerLetters.includes(userGuess)) {
 			var guessToChar = userGuess.charAt(0);
-			console.log(guessToChar);
 			var missTracker = 0;
-			console.log(answerLetters);
 			//check to see if the key was a hit
 			for (var k = 0; k < answerLetters.length; k++) {
 				if (answerLetters[k] == guessToChar) {
 					missTracker = 100;
-					console.log("hit");
 					blanks[k] = guessToChar;
 					movieList.wordUpdate();
 				}
@@ -88,6 +83,8 @@ document.onkeyup = function(event) {
 			misses--;
 			misstracker = 0;
 			if (misses == 0) {
+				losses ++;
+				document.getElementById('losses').innerHTML = "Losses: " + losses;
 				movieList.resetGame();
 			}
 			document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;

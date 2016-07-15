@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://fonts.googleapis.com/css?family=Rock+Salt);
+@import url(https://fonts.googleapis.com/css?family=Orbitron);
+
+body {
+  width: 100%;
+  margin: 0 auto;
+  background-color: black;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 60px;
+  color: #f51fca;
+  font-family: 'Audiowide', cursive;
+  margin-bottom: 50px;
+}
+
+h4 {
+  color: #196dce;
+  font-family: 'Rock Salt', cursive;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.container {
+  width: 960px;
+}
+
+.board {
+  color: yellow;
+  font-family: 'Orbitron', sans-serif;
+  border: 2px dashed yellow;
+  padding: 20px 5px;
+}
+
+.align-right {
+  text-align: right;
+}
