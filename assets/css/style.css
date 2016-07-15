@@ -35,6 +35,11 @@ h4 {
   padding: 20px 5px;
 }
 
+/*.boarder {
+  border: 1px dotted orange;
+  padding: 2px;
+}*/
+
 .align-right {
   text-align: right;
 }
