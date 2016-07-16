@@ -56,8 +56,9 @@ document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 
 // Randomly selecting which answer the computer will use
-var computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
-console.log(computerAnswer);
+var computerAnswer = movieList.movies[4].toUpperCase();
+// [Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
+// console.log(computerAnswer);
 
 var blanks = [];
 var guessed = [];
@@ -129,7 +130,7 @@ function musicPicture() {
         audio.play();
         document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/topgun.jpg' />";
     }  else if (displayAnswer == "G R E M L I N S ") {
-        audio.src = "assets/music/gremlins.mp3";
+        audio.src = "assets/music/gremlin.mp3";
         audio.play();
         document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/gremlins.jpg' />";
     } else if (displayAnswer == "T H E ^ B R E A K F A S T ^ C L U B ") {
