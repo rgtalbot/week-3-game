@@ -54,6 +54,7 @@ var movieList = {
 document.getElementById("wins").innerHTML = "Wins: " + wins;
 document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
+document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/eighty.png' />";
 
 // Randomly selecting which answer the computer will use
 var computerAnswer = movieList.movies
@@ -77,7 +78,7 @@ movieList.wordUpdate();
 document.onkeyup = function(event) {
     var userGuess = String.fromCharCode(event.keyCode);
     document.getElementById('start').style.display = 'none'
-    document.getElementById('picture').innerHTML = "";
+    document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/eighty.png' />";
     audioStop();
     if (guessed.includes(userGuess)) {
         //do nothing
