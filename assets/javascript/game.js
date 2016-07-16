@@ -109,8 +109,8 @@ document.onkeyup = function(event) {
     movieList.winCheck();
 }
 
+//Play music and display picture for win
 var audio = new Audio ()
-
 function musicPicture() {
     if (displayAnswer == "G H O S T B U S T E R S ") {
         audio.src = "assets/music/ghostbusters.mp3";
@@ -183,6 +183,7 @@ function musicPicture() {
     }
 }
 
+//stop music for when you start guessing again
 function audioStop() {
     audio.pause();
 }
