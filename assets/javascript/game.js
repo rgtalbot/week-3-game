@@ -14,7 +14,7 @@ var movieList = {
             musicPicture();
             document.getElementById("wins").innerHTML = "Wins: " + wins;
             if (wins > 9) {
-                alert("You're playing too much. Get a life");
+                // alert("You're playing too much. Get a life");
             }
             movieList.resetGame();
         }
