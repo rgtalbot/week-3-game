@@ -20,8 +20,6 @@ var movieList = {
         }
     },
 
-
-
     //update the displayed word after a correct hit, win, or loss
     wordUpdate: function() {
         displayAnswer = "";
@@ -29,7 +27,7 @@ var movieList = {
             displayAnswer += blanks[i] + " ";
         }
         // console.log(displayAnswer);
-        document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp');
+        document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp &nbsp');
     },
 
     //reset the game if a win or loss is detected
