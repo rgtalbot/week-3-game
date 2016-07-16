@@ -57,6 +57,7 @@ document.getElementById("wins").innerHTML = "Wins: " + wins;
 document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/eighty.png' />";
+document.getElementById('logo').innerHTML = "<img class='img-responsive center-block' src='assets/images/hangmanlogo.png' />";
 
 // Randomly selecting which answer the computer will use
 var computerAnswer = movieList.movies
