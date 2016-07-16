@@ -4,7 +4,7 @@ var misses = 6;
 
 var movieList = {
     // List of Computer Answers
-    movies: ['Ghostbusters', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club', 'Blade Runner', 'Die Hard', 'Rambo', 'Rocky IV', 'Indiana Jones', 'The Karate Kid', 'Police Academy', 'Stripes', 'Revenge of the Nerds', 'The Terminator', 'Weekend at Bernies'],
+    movies: ['Ghostbusters', 'Ferris Buellers Day Off', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club', 'Blade Runner', 'Die Hard', 'Rambo', 'Rocky IV', 'Indiana Jones', 'The Karate Kid', 'Police Academy', 'Stripes', 'Revenge of the Nerds', 'The Terminator', 'Weekend at Bernies'],
 
     //check to see if there is a win
     winCheck: function() {
@@ -120,6 +120,10 @@ function musicPicture() {
         audio.src = "assets/music/ghostbusters.mp3";
         audio.play();
         document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/ghostbusters.jpg' />";
+    } else if (displayAnswer == "F E R R I S ^ B U E L L E R S ^ D A Y ^ O F F ") {
+        audio.src = "assets/music/ferris.mp3";
+        audio.play();
+        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/ferris.jpg' />";
     } else if (displayAnswer == "T H E ^ G O O N I E S ") {
         audio.src = "assets/music/goonies.mp3";
         audio.play();
