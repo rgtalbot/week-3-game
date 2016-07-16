@@ -13,7 +13,9 @@ var movieList = {
             wins++;
             musicPicture();
             document.getElementById("wins").innerHTML = "Wins: " + wins;
-            // alert("Congrats, " + computerAnswer + " was correct!");
+            if (wins > 9) {
+                alert("You're playing too much. Get a life");
+            }
             movieList.resetGame();
         }
     },
