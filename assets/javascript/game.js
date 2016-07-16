@@ -26,7 +26,7 @@ var movieList = {
         for (var i = 0; i < computerAnswer.length; i++) {
             displayAnswer += blanks[i] + " ";
         }
-        console.log(displayAnswer);
+        // console.log(displayAnswer);
         document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp');
     },
 
@@ -35,7 +35,7 @@ var movieList = {
         misses = 6;
         document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
         computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
-        console.log(computerAnswer);
+        // console.log(computerAnswer);
         guessed = [];
         document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
         blanks = [];
@@ -56,8 +56,8 @@ document.getElementById('losses').innerHTML = "Losses: " + losses;
 document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
 
 // Randomly selecting which answer the computer will use
-var computerAnswer = movieList.movies[4].toUpperCase();
-// [Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
+var computerAnswer = movieList.movies
+[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
 // console.log(computerAnswer);
 
 var blanks = [];
