@@ -1,43 +1,42 @@
-var wins = 0;
-var losses = 0;
-var misses = 6;
+var wins = 0,
+    losses = 0,
+    misses = 6,
+    blanks = [],
+    guessed = [];
 
 var movieList = {
     // List of Computer Answers
     movies: ['Ghostbusters', 'Ferris Buellers Day Off', 'The Goonies', 'Back to the Future', 'Top Gun', 'Gremlins', 'The Breakfast Club', 'Blade Runner', 'Die Hard', 'Rambo', 'Rocky IV', 'Indiana Jones', 'The Karate Kid', 'Police Academy', 'Stripes', 'Revenge of the Nerds', 'The Terminator', 'Weekend at Bernies'],
 
     //check to see if there is a win
-    winCheck: function() {
+    winCheck: function () {
         var a = blanks.indexOf("_");
         if (a < 0) {
             wins++;
-            musicPicture();
-            document.getElementById("wins").innerHTML = "Wins: " + wins;
-            if (wins > 9) {
-                // alert("You're playing too much. Get a life");
-            }
+            musicPicture(computerAnswer);
+            audio.play();
+            $("#wins").html("Wins: " + wins);
             movieList.resetGame();
         }
     },
 
     //update the displayed word after a correct hit, win, or loss
-    wordUpdate: function() {
+    wordUpdate: function () {
         displayAnswer = "";
         for (var i = 0; i < computerAnswer.length; i++) {
             displayAnswer += blanks[i] + " ";
         }
-        // console.log(displayAnswer);
-        document.getElementById("word").innerHTML = displayAnswer.replace(/\^/gi, '&nbsp &nbsp');
+        $("#word").html(displayAnswer.replace(/\^/gi, "&nbsp &nbsp"));
     },
 
     //reset the game if a win or loss is detected
-    resetGame: function() {
+    resetGame: function () {
         misses = 6;
-        document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
+        $("#guesses").html("Number of Guesses Left: " + misses);
         computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
-        // console.log(computerAnswer);
+        console.log(computerAnswer);
         guessed = [];
-        document.getElementById('letters').innerHTML = "Letters guessed: " + guessed;
+        $("#letters").html("Letters guessed: " + guessed);
         blanks = [];
         for (var i = 0; i < computerAnswer.length; i++) {
             if (computerAnswer[i] == " ") {
@@ -47,23 +46,17 @@ var movieList = {
             }
         }
         movieList.wordUpdate();
-    },
+    }
 };
 
 //display inital counts
-document.getElementById("wins").innerHTML = "Wins: " + wins;
-document.getElementById('losses').innerHTML = "Losses: " + losses;
-document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
-document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/eighty.png' />";
-document.getElementById('logo').innerHTML = "<img class='img-responsive center-block' src='assets/images/hangmanlogo.png' />";
+$("#wins").html("Wins: " + wins);
+$("#losses").html("Losses: " + losses);
+$("#guesses").html("Number of Guesses Left: " + misses);
 
 // Randomly selecting which answer the computer will use
 var computerAnswer = movieList.movies
-[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
-// console.log(computerAnswer);
-
-var blanks = [];
-var guessed = [];
+    [Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
 
 //create blank array for displaying
 for (var i = 0; i < computerAnswer.length; i++) {
@@ -76,16 +69,17 @@ for (var i = 0; i < computerAnswer.length; i++) {
 movieList.wordUpdate();
 
 // user keystroke executing function
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
     var userGuess = String.fromCharCode(event.keyCode);
-    document.getElementById('start').style.display = 'none'
-    document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/eighty.png' />";
+    $("#start").hide();
+    $("#picture").attr("src", "assets/images/eighty.png");
     audioStop();
     if (guessed.includes(userGuess)) {
         //do nothing
     } else {
-        guessed.push(userGuess)
-        document.getElementById('letters').innerHTML = "Letters guessed: " + guessed.join(", ");
+        guessed.push(userGuess);
+        guessed.join(", ");
+        $("#letters").html("Letters guessed: " + guessed);
         if (computerAnswer.includes(userGuess)) {
             var guessToChar = userGuess.charAt(0);
             var missTracker = 0;
@@ -102,91 +96,95 @@ document.onkeyup = function(event) {
             misstracker = 0;
             if (misses == 0) {
                 losses++;
-                document.getElementById('losses').innerHTML = "Losses: " + losses;
+                $("#losses").html("Losses: " + losses);
                 alert("Sorry, the correct answer was " + computerAnswer);
                 movieList.resetGame();
             }
-            document.getElementById('guesses').innerHTML = "Number of Guesses Left: " + misses;
+            $("#guesses").html("Number of Guesses Left: " + misses);
         }
     }
     movieList.winCheck();
-}
+};
 
 //Play music and display picture for win
-var audio = new Audio ()
-function musicPicture() {
-    if (displayAnswer == "G H O S T B U S T E R S ") {
-        audio.src = "assets/music/ghostbusters.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/ghostbusters.jpg' />";
-    } else if (displayAnswer == "F E R R I S ^ B U E L L E R S ^ D A Y ^ O F F ") {
-        audio.src = "assets/music/ferris.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/ferris.jpg' />";
-    } else if (displayAnswer == "T H E ^ G O O N I E S ") {
-        audio.src = "assets/music/goonies.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/goonies.jpg' />";
-    } else if (displayAnswer == "B A C K ^ T O ^ T H E ^ F U T U R E ") {
-        audio.src = "assets/music/bttf.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/bttf.jpg' />";
-    } else if (displayAnswer == "T O P ^ G U N ") {
-        audio.src = "assets/music/topgun.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/topgun.jpg' />";
-    }  else if (displayAnswer == "G R E M L I N S ") {
-        audio.src = "assets/music/gremlin.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/gremlins.jpg' />";
-    } else if (displayAnswer == "T H E ^ B R E A K F A S T ^ C L U B ") {
-        audio.src = "assets/music/breakfast.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/breakfast.jpg' />";
-    } else if (displayAnswer == "B L A D E ^ R U N N E R ") {
-        audio.src = "assets/music/blrunner.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/blrunner.jpg' />";
-    } else if (displayAnswer == "D I E ^ H A R D ") {
-        audio.src = "assets/music/dieHard.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/dieHard.jpg' />";
-    } else if (displayAnswer == "R A M B O ") {
-        audio.src = "assets/music/rambo.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/rambo.jpg' />";
-    } else if (displayAnswer == "R O C K Y ^ I V ") {
-        audio.src = "assets/music/rocky.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/rocky.jpg' />";
-    } else if (displayAnswer == "I N D I A N A ^ J O N E S ") {
-        audio.src = "assets/music/indy.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/indy.jpg' />";
-    } else if (displayAnswer == "T H E ^ K A R A T E ^ K I D ") {
-        audio.src = "assets/music/karate.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/karate.png' />";
-    } else if (displayAnswer == "P O L I C E ^ A C A D E M Y ") {
-        audio.src = "assets/music/police.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/police.jpg' />";
-    } else if (displayAnswer == "S T R I P E S ") {
-        audio.src = "assets/music/stripes.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/stripes.jpg' />";
-    } else if (displayAnswer == "R E V E N G E ^ O F ^ T H E ^ N E R D S ") {
-        audio.src = "assets/music/nerds.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/nerds.jpg' />";
-    } else if (displayAnswer == "T H E ^ T E R M I N A T O R ") {
-        audio.src = "assets/music/terminator.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/terminator.jpg' />";
-    } else if (displayAnswer == "W E E K E N D ^ A T ^ B E R N I E S ") {
-        audio.src = "assets/music/bernie.mp3";
-        audio.play();
-        document.getElementById('picture').innerHTML = "<img class='img-responsive center-block' src='assets/images/bernie.jpg' />";
+var audio = new Audio();
+function musicPicture(expression) {
+
+    switch(expression) {
+        case "GHOSTBUSTERS":
+            audio.src = "assets/music/ghostbusters.mp3";
+            $("#picture").attr("src", "assets/images/ghostbusters.jpg");
+            break;
+        case "FERRIS BUELLERS DAY OFF":
+            audio.src = "assets/music/ferris.mp3";
+            $("#picture").attr("src", "assets/images/ferris.jpg");
+            break;
+        case "THE GOONIES":
+            audio.src = "assets/music/goonies.mp3";
+            $("#picture").attr("src", "assets/images/goonies.jpg");
+            break;
+        case "BACK TO THE FUTURE":
+            audio.src = "assets/music/bttf.mp3";
+            $("#picture").attr("src", "assets/images/bttf.jpg");
+            break;
+        case "TOP GUN":
+            audio.src = "assets/music/topgun.mp3";
+            $("#picture").attr("src", "assets/images/topgun.jpg");
+            break;
+        case "GREMLINS":
+            audio.src = "assets/music/gremlin.mp3";
+            $("#picture").attr("src", "assets/images/gremlins.jpg");
+            break;
+        case "THE BREAKFAST CLUB":
+            audio.src = "assets/music/breakfast.mp3";
+            $("#picture").attr("src", "assets/images/breakfast.jpg");
+            break;
+        case "BLADE RUNNER":
+            audio.src = "assets/music/blrunner.mp3";
+            $("#picture").attr("src", "assets/images/blrunner.jpg");
+            break;
+        case "DIE HARD":
+            audio.src = "assets/music/dieHard.mp3";
+            $("#picture").attr("src", "assets/images/dieHard.jpg");
+            break;
+        case "RAMBO":
+            audio.src = "assets/music/rambo.mp3";
+            $("#picture").attr("src", "assets/images/rambo.jpg");
+            break;
+        case "ROCKY IV":
+            audio.src = "assets/music/rocky.mp3";
+            $("#picture").attr("src", "assets/images/rocky.jpg");
+            break;
+        case "INDIANA JONES":
+            audio.src = "assets/music/indy.mp3";
+            $("#picture").attr("src", "assets/images/indy.jpg");
+            break;
+        case "THE KARATE KID":
+            audio.src = "assets/music/karate.mp3";
+            $("#picture").attr("src", "assets/images/karate.png");
+            break;
+        case "POLICE ACADEMY":
+            audio.src = "assets/music/police.mp3";
+            $("#picture").attr("src", "assets/images/police.jpg");
+            break;
+        case "STRIPES":
+            audio.src = "assets/music/stripes.mp3";
+            $("#picture").attr("src", "assets/images/stripes.jpg");
+            break;
+        case "REVENGE OF THE NERDS":
+            audio.src = "assets/music/nerds.mp3";
+            $("#picture").attr("src", "assets/images/nerds.jpg");
+            break;
+        case "THE TERMINATOR":
+            audio.src = "assets/music/terminator.mp3";
+            $("#picture").attr("src", "assets/images/terminator.jpg");
+            break;
+        case "WEEKEND AT BERNIES":
+            audio.src = "assets/music/bernie.mp3";
+            $("#picture").attr("src", "assets/images/bernie.jpg");
+            break;
+        default:
+            alert("something went wrong");
     }
 }
 
