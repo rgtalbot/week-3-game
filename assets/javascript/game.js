@@ -2,7 +2,8 @@ var wins = 0,
     losses = 0,
     misses = 6,
     blanks = [],
-    guessed = [];
+    guessed = [],
+    computerAnswer;
 
 var movieList = {
     // List of Computer Answers
@@ -16,16 +17,18 @@ var movieList = {
             musicPicture(computerAnswer);
             audio.play();
             $("#wins").html("Wins: " + wins);
-            movieList.resetGame();
+            $("#start").show();
+            $("#start").text("Press any Key to play again")
+            setTimeout(movieList.resetGame, 2000);
         }
     },
 
     //update the displayed word after a correct hit, win, or loss
     wordUpdate: function () {
         displayAnswer = "";
-        for (var i = 0; i < computerAnswer.length; i++) {
-            displayAnswer += blanks[i] + " ";
-        }
+        $.each(blanks, function(index, val){
+            displayAnswer += blanks[index] + " ";
+        });
         $("#word").html(displayAnswer.replace(/\^/gi, "&nbsp &nbsp"));
     },
 
@@ -33,19 +36,57 @@ var movieList = {
     resetGame: function () {
         misses = 6;
         $("#guesses").html("Number of Guesses Left: " + misses);
-        computerAnswer = movieList.movies[Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
-        console.log(computerAnswer);
         guessed = [];
         $("#letters").html("Letters guessed: " + guessed);
         blanks = [];
-        for (var i = 0; i < computerAnswer.length; i++) {
-            if (computerAnswer[i] == " ") {
-                blanks.push("^");
+        movieList.selectMovie();
+    },
+
+    //picks the next movie from the list
+    selectMovie: function() {
+        computerAnswer = movieList.movies
+            [Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
+        var split = computerAnswer.split("");
+
+        $.each(split, function(index, value) {
+            if (value !== " ") {
+                blanks.push("_")
+            }  else {
+                blanks.push("^")
+            }
+        });
+        movieList.wordUpdate();
+    },
+
+    //runs when a letter is guessed
+    letterGuess: function(input) {
+        if (guessed.includes(input)) {
+            //do nothing
+        } else {
+            guessed.push(input);
+            guessed.join(", ");
+            $("#letters").html("Letters guessed: " + guessed);
+            if (computerAnswer.includes(input)) {
+                var guessToChar = input.charAt(0);
+                //check to see if the key was a hit
+                for (var k = 0; k < computerAnswer.length; k++) {
+                    if (computerAnswer[k] == guessToChar) {
+                        blanks[k] = guessToChar;
+                        movieList.wordUpdate();
+                    }
+                }
             } else {
-                blanks.push("_");
+                misses--;
+                if (misses == 0) {
+                    losses++;
+                    $("#losses").html("Losses: " + losses);
+                    alert("Sorry, the correct answer was " + computerAnswer);
+                    movieList.resetGame();
+                }
+                $("#guesses").html("Number of Guesses Left: " + misses);
             }
         }
-        movieList.wordUpdate();
+        movieList.winCheck();
     }
 };
 
@@ -54,56 +95,35 @@ $("#wins").html("Wins: " + wins);
 $("#losses").html("Losses: " + losses);
 $("#guesses").html("Number of Guesses Left: " + misses);
 
-// Randomly selecting which answer the computer will use
-var computerAnswer = movieList.movies
-    [Math.floor(Math.random() * movieList.movies.length)].toUpperCase();
 
-//create blank array for displaying
-for (var i = 0; i < computerAnswer.length; i++) {
-    if (computerAnswer[i] == " ") {
-        blanks.push("^");
-    } else {
-        blanks.push("_");
-    }
-}
-movieList.wordUpdate();
+movieList.selectMovie();
+
+//create buttons
+var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",];
+
+$.each(letters, function(index,letter) {
+   var $button = $("<button/>")
+       .addClass("btn letter-button")
+       .data("letter", letter)
+       .text(letter);
+    $("#buttons").append($button);
+});
+
+$(".letter-button").on('click', function() {
+    movieList.letterGuess($(this).data('letter'));
+});
+
 
 // user keystroke executing function
 document.onkeyup = function (event) {
-    var userGuess = String.fromCharCode(event.keyCode);
+    var key = event.keyCode;
+    var userGuess = String.fromCharCode(key);
     $("#start").hide();
     $("#picture").attr("src", "assets/images/eighty.png");
     audioStop();
-    if (guessed.includes(userGuess)) {
-        //do nothing
-    } else {
-        guessed.push(userGuess);
-        guessed.join(", ");
-        $("#letters").html("Letters guessed: " + guessed);
-        if (computerAnswer.includes(userGuess)) {
-            var guessToChar = userGuess.charAt(0);
-            var missTracker = 0;
-            //check to see if the key was a hit
-            for (var k = 0; k < computerAnswer.length; k++) {
-                if (computerAnswer[k] == guessToChar) {
-                    missTracker = 100;
-                    blanks[k] = guessToChar;
-                    movieList.wordUpdate();
-                }
-            }
-        } else {
-            misses--;
-            misstracker = 0;
-            if (misses == 0) {
-                losses++;
-                $("#losses").html("Losses: " + losses);
-                alert("Sorry, the correct answer was " + computerAnswer);
-                movieList.resetGame();
-            }
-            $("#guesses").html("Number of Guesses Left: " + misses);
-        }
+    if (key >= 65 && key <= 90) {
+        movieList.letterGuess(userGuess);
     }
-    movieList.winCheck();
 };
 
 //Play music and display picture for win
