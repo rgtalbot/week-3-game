@@ -109,12 +109,14 @@ $.each(letters, function(index,letter) {
     $("#buttons").append($button);
 });
 
+
+//pushing a button executes guess function
 $(".letter-button").on('click', function() {
     movieList.letterGuess($(this).data('letter'));
 });
 
 
-// user keystroke executing function
+// user keystroke executes guess function
 document.onkeyup = function (event) {
     var key = event.keyCode;
     var userGuess = String.fromCharCode(key);

@@ -48,3 +48,10 @@ footer {
 .align-right {
   text-align: right;
 }
+
+.letter-button {
+  color: black;
+  background-color: yellow;
+  margin: 3px;
+  
+}
