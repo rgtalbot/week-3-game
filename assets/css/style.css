@@ -19,8 +19,8 @@
 }
 
 body {
-  width: 100%;
-  margin: 0 auto;
+  width: 1170px;
+  margin: 30px auto;
   background-color: black;
   line-height: 1.5;
   font-size: 16px;
@@ -53,5 +53,5 @@ footer {
   color: black;
   background-color: yellow;
   margin: 3px;
-  
+
 }

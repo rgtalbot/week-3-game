@@ -18,7 +18,8 @@ var movieList = {
             audio.play();
             $("#wins").html("Wins: " + wins);
             $("#start").show();
-            $("#start").text("Press any Key to play again")
+            $("#start").text("Press any Key to play again");
+            debugger;
             setTimeout(movieList.resetGame, 2000);
         }
     },
