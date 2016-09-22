@@ -100,7 +100,7 @@ $("#guesses").html("Number of Guesses Left: " + misses);
 movieList.selectMovie();
 
 //create buttons
-var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",];
+var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
 $.each(letters, function(index,letter) {
    var $button = $("<button/>")
